@@ -11,24 +11,28 @@ let boardSquare = $(`.game-board div`); //target board squares
 
 /*----- event listeners -----*/
 
-
+let whichKey = document.addEventListener("keydown", function(evt)   {
+    return console.log(evt.key);
+});
 
 /*----- functions -----*/
 
 const init = () => {
-
+    
     //initial board setup
     board = 
-    [[0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0]];
-
+    [
+        ["","","",""],
+        ["","","",""],
+        ["","","",""],
+        ["","","",""]
+    ];
+    
     render();
 }
 
 const render = () => {
-
+    
     board.forEach((boardCol, colIdx) => {
         boardCol.forEach((rowCol, rowIdx) => {
             // $(`${boardSquare}.c${colIdx}r${rowIdx}`).html(`${rowCol}`);
@@ -43,16 +47,27 @@ const render = () => {
 init();
 
 /*PSEUDOCODE
+
+            left    
+        ["","","",""]
+ top    ["","","",""]   bottom  
+        ["","","",""]
+        ["","","",""]
+          right
+
 game functions:
-create init board and variables
+
+create init board and variables 
+
 create listener for arrow keys/wasd - link to left/right/up/down
+
 create board 
 make render to map board to the html grid 
 
 after a move
 check for win/lose 
-    win = one of the squares in the board has a value of 2040
-    lose = all the squares are full and there are no dupe values to the left/right/top/bottom 
+win = one of the squares in the board has a value of 2040
+lose = all the squares are full and there are no dupe values to the left/right/top/bottom 
 calculate totals of added numbers
 
 if no win/lose -->
@@ -61,5 +76,5 @@ spawn 2 or 4 tile in a random empty space
 
 if there is time:
 score system - score works by adding to total score 
-    
- */
+
+*/
