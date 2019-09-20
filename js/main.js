@@ -11,25 +11,30 @@ let boardSquare = $(`.game-board div`); //target board squares
 
 /*----- event listeners -----*/
 
-let whichKey = document.addEventListener("keydown", function(evt)   {
-    return console.log(evt.key);
+let gameKey = document.addEventListener("keydown", function(evt)   {
+    //return values for direction key pressed (WASD friendly)
+
+    // for up direction pressed
+    if (evt.key === "w"||evt.key === "ArrowUp") { 
+        console.log("dirUp");
+    }
+    // for left direction pressed
+    else if (evt.key === "a"||evt.key === "ArrowLeft") {
+        console.log("dirLeft");
+    }
+    // for down direction pressed
+    else if (evt.key === "s"||evt.key === "ArrowDown") {
+        console.log("dirDown");
+    }
+    // for right direction pressed
+    else if (evt.key === "d"||evt.key === "ArrowRight") {
+        console.log("dirRight");
+    }
+    else {
+    }
 });
 
 /*----- functions -----*/
-
-const init = () => {
-    
-    //initial board setup
-    board = 
-    [
-        ["","","",""],
-        ["","","",""],
-        ["","","",""],
-        ["","","",""]
-    ];
-    
-    render();
-}
 
 const render = () => {
     
@@ -42,6 +47,22 @@ const render = () => {
     });
 }
 
+const init = () => {
+    
+    //initial board setup
+    board = 
+    [
+        ["","","",""],
+        ["","","",""],
+        ["","","",""],
+        ["","","",""]
+    ];
+}
+
+//makes the number generated either 2 or 4
+const randomSpawn = () => {
+        console.log((Math.floor((Math.random()*2+1)))*2);
+}
 
 // CONSOLE LOG TESTING
 init();
