@@ -91,6 +91,7 @@ const render = () => {
         checkMoved = 0;
         //make function to add them horizontally
         //make function to move left
+        hMove("left");
         //randomspawn only checkAdded = 0;if a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
@@ -103,6 +104,7 @@ const render = () => {
         checkMoved = 0;
         //make function to add them horizontally
         //make function to move right
+        hMove("right");
         //randomspawn only icheckAdded = 0;f a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
@@ -146,6 +148,30 @@ const render = () => {
         else{}      
     }
     // function to do horizontal adding
+    const hMove = (x) => {
+        if (x == "right") {
+            board.forEach((innerA,innerIdx) => {
+                for (i = 0; i < 3; i++) {
+                    if (board[i][innerIdx] !== 0) {
+                        if (board[i+1][innerIdx] === 0) {
+                            let tempVar = board[i][innerIdx];
+                            board[i+1][innerIdx] = tempVar;
+                            board[i].splice((innerIdx),1,0);
+                            checkMoved = 1;
+                        }
+                    }
+                }
+            });
+        }
+        // else if (x = "left") {
+        //     for(i = 3; i > 0; i--){
+        //         for (o = 0; 0 < 3; o++) {
+                    
+        //         }
+        //     }
+        // }
+        // else{}
+    }
     
     //initial board setup
     const init = () => {
@@ -237,5 +263,7 @@ const render = () => {
     
     if there is time:
     score system - score works by adding to total score based on what was just added
-    
+    colors for each number square?
+    sliding animation ???
+    new game button
     */
