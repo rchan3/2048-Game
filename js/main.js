@@ -92,7 +92,7 @@ const render = () => {
         //make function to add them horizontally
         //make function to move left
         hMove("left");
-        hMove("left");
+        hMove("left");//run twice because sometimes theres a random space if only run once
         //randomspawn only checkAdded = 0;if a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
@@ -106,7 +106,7 @@ const render = () => {
         //make function to add them horizontally
         //make function to move right
         hMove("right");
-        hMove("right");
+        hMove("right");//run twice because sometimes theres a random space if only run once
         //randomspawn only icheckAdded = 0;f a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
