@@ -92,6 +92,7 @@ const render = () => {
         //make function to add them horizontally
         //make function to move left
         hMove("left");
+        hMove("left");
         //randomspawn only checkAdded = 0;if a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
@@ -104,6 +105,7 @@ const render = () => {
         checkMoved = 0;
         //make function to add them horizontally
         //make function to move right
+        hMove("right");
         hMove("right");
         //randomspawn only icheckAdded = 0;f a combine/move has happened
         if (checkMoved !== 0) {
@@ -163,14 +165,21 @@ const render = () => {
                 }
             });
         }
-        // else if (x = "left") {
-        //     for(i = 3; i > 0; i--){
-        //         for (o = 0; 0 < 3; o++) {
-                    
-        //         }
-        //     }
-        // }
-        // else{}
+        else if (x = "left") {
+            board.forEach((innerA,innerIdx) => {
+                for (i = 3;i > 0; i--) {
+                    if (board[i][innerIdx] !== 0) {
+                        if (board[i-1][innerIdx] === 0) {
+                            let tempVar = board[i][innerIdx];
+                            board[i-1][innerIdx] = tempVar;
+                            board[i].splice((innerIdx),1,0);
+                            checkMoved = 1;
+                        }
+                    }
+                }
+            });
+        }
+        else{}
     }
     
     //initial board setup
@@ -255,7 +264,7 @@ const render = () => {
     calculate totals of added numbers
     if no win/lose --> move and add identical squares in the fdirection of the button pressed (if one square was added then it cant be added again during the same turn - if there is more than one dupe then the direction chooses which one has prio)
     - add lose/win check to each listener
-    - function to do stuff based on direction - only if gameState is null
+    - function to do stuff based on direction - only if gameState is null FINISHED
     
     make sure all the empty space to (direction) is taken up of theres a space 
     
