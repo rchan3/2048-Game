@@ -77,8 +77,8 @@ const render = () => {
     const dirDown = () => {
         checkMoved = 0;
         //make function to add them vertically
-        vMove();
         //make function to move down
+        vMove("down");
         //randomspawn only checkAdded = 0;if a combine/move has happened
         if (checkMoved !== 0) {
             randomSpawn();
@@ -115,7 +115,7 @@ const render = () => {
     // function to do the vertical adding
     const vMove = (x) => {
         //if arrowup
-        if (x = "up") {
+        if (x == "up") {
             board.forEach((boardCol,colIdx) => {
                 for(i = 3;i > 0; i--) {
                     if(board[colIdx][i] !== 0) {
@@ -125,10 +125,25 @@ const render = () => {
                             checkMoved = 1;
                         }
                     }
-                    else {}
+                    
                 }
-            })  
-        }      
+            });  
+        }
+        // if arrow down
+        else if (x == "down") {
+            board.forEach((boardCol,colIdx) => {
+                for(i = 0;i < 3; i++) {
+                    if(board[colIdx][i] !== 0) {
+                        if (board[colIdx][i+1] === 0) {
+                            board[colIdx].splice(i+1,1);
+                            board[colIdx].unshift(0);
+                            checkMoved = 1;
+                        }
+                    }
+                }
+            })
+        }
+        else{}      
     }
     // function to do horizontal adding
     
