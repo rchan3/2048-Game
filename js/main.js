@@ -2,8 +2,9 @@
 
 /*----- app's state (variables) -----*/
 
-let gameState,board,checkMoved;
+let gameState,board,checkMoved,checkAdded;
 //gameState initialized as null - 1 if win, -1 if lose
+// checkMoved and checkAdded as 0 if nothing can be moved or added
 
 /*----- cached element references -----*/
 
@@ -61,26 +62,29 @@ const render = () => {
     
     // functions to add the math in each of the 4 directions
     const dirUp = () => {
+        checkAdded = 0;
         checkMoved = 0;
         //make function to add them vertically
-        
+        addUp();  
         //make function to move up
         vMove("up");
         //randomspawn only if a combine/move has happened
-        if (checkMoved !== 0) {
+        if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
         }
         else {
             console.log("nospawn"); //test
         }
     }
+    
     const dirDown = () => {
         checkMoved = 0;
+        checkAdded = 0;
         //make function to add them vertically
         //make function to move down
         vMove("down");
         //randomspawn only checkAdded = 0;if a combine/move has happened
-        if (checkMoved !== 0) {
+        if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
         }
         else {
@@ -89,12 +93,13 @@ const render = () => {
     }
     const dirLeft = () => {
         checkMoved = 0;
+        checkAdded = 0;
         //make function to add them horizontally
         //make function to move left
         hMove("left");
-        hMove("left");//run twice because sometimes theres a random space if only run once
+        hMove("left");//run twice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
         //randomspawn only checkAdded = 0;if a combine/move has happened
-        if (checkMoved !== 0) {
+        if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
         }
         else {
@@ -103,12 +108,13 @@ const render = () => {
     }
     const dirRight = () => {
         checkMoved = 0;
+        checkAdded = 0;
         //make function to add them horizontally
         //make function to move right
         hMove("right");
-        hMove("right");//run twice because sometimes theres a random space if only run once
+        hMove("right");//run twice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
         //randomspawn only icheckAdded = 0;f a combine/move has happened
-        if (checkMoved !== 0) {
+        if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
         }
         else {
@@ -116,7 +122,7 @@ const render = () => {
         }
     }
     
-    // function to do the vertical adding
+    // function to do the vertical moving
     const vMove = (x) => {
         //if arrowup
         if (x == "up") {
@@ -149,7 +155,7 @@ const render = () => {
         }
         else{}      
     }
-    // function to do horizontal adding
+    // function to do horizontal moving
     const hMove = (x) => {
         if (x == "right") {
             board.forEach((innerA,innerIdx) => {
@@ -182,6 +188,36 @@ const render = () => {
         else{}
     }
     
+    //function to add all elements on up
+    const addUp = () => {
+        board.forEach((boardCol,colIdx) => {
+            if (board[colIdx][0] == board[colIdx][1]) {
+                board[colIdx][0] = board[colIdx][0] + board[colIdx][1];
+                board[colIdx][1] = 0;
+                checkAdded = 1;
+                if (board[colIdx][2] == board[colIdx][3]){
+                    board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
+                    board[colIdx][3] = 0;
+                };
+            }
+            else if (board[colIdx][1] == board[colIdx][2]) {
+                board[colIdx][1] = board[colIdx][1] + board[colIdx][2];
+                board[colIdx][2] = 0;
+                checkAdded = 1;
+            }
+            else if (board[colIdx][2] == board[colIdx][3]) {
+                board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
+                board[colIdx][3] = 0;
+                checkAdded = 1;
+            }
+            else{};
+        });
+    };
+    
+    // function to add all elements on down
+    // function to add all elements on right
+    // function to add all elements on left
+    
     //initial board setup
     const init = () => {
         
@@ -211,7 +247,7 @@ const render = () => {
         // if not empty then run function again
         else {
             randomSpawn();
-        }
+        };
     };
     
     //makes the number generated either 2 or 4
@@ -228,6 +264,7 @@ const render = () => {
     };
     
     // CONSOLE LOG TESTING
+    
     init();
     
     /*PSEUDOCODE
@@ -261,7 +298,7 @@ const render = () => {
     check for win/lose 
     win = one of the squares in the board has a value of 2040
     lose = all the squares are full and there are no dupe values to the left/right/top/bottom 
-    calculate totals of added numbers
+    
     if no win/lose --> move and add identical squares in the fdirection of the button pressed (if one square was added then it cant be added again during the same turn - if there is more than one dupe then the direction chooses which one has prio)
     - add lose/win check to each listener
     - function to do stuff based on direction - only if gameState is null FINISHED
@@ -271,7 +308,7 @@ const render = () => {
     
     
     if there is time:
-    score system - score works by adding to total score based on what was just added
+    score system - score works by calculating totals of added numbers
     colors for each number square?
     sliding animation ???
     new game button
