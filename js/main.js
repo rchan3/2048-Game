@@ -81,6 +81,7 @@ const render = () => {
         checkMoved = 0;
         checkAdded = 0;
         //make function to add them vertically
+        addDown();
         //make function to move down
         vMove("down");
         //randomspawn only checkAdded = 0;if a combine/move has happened
@@ -200,21 +201,83 @@ const render = () => {
                     board[colIdx][3] = 0;
                 };
             }
-            else if (board[colIdx][1] == board[colIdx][2]) {
+            else if (board[colIdx][1] == board[colIdx][2] && (board[colIdx][1] + board[colIdx][2] !== 0)) {
                 board[colIdx][1] = board[colIdx][1] + board[colIdx][2];
                 board[colIdx][2] = 0;
                 checkAdded = 1;
             }
+            else if (board[colIdx][0] == board[colIdx][2]) {
+                board[colIdx][0] = board[colIdx][0] + board[colIdx][2];
+                board[colIdx][2] = 0;
+                checkAdded = 1;
+            }
+
             else if (board[colIdx][2] == board[colIdx][3]) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
                 board[colIdx][3] = 0;
                 checkAdded = 1;
             }
+            else if (board[colIdx][1] == board[colIdx][3]) {
+                board[colIdx][1] = board[colIdx][1] + board[colIdx][3];
+                board[colIdx][3] = 0;
+                checkAdded = 1;
+            }
+
+            else if  (board[colIdx][0] == board[colIdx][3]) {
+                board[colIdx][0] = board[colIdx][0] + board[colIdx][3];
+                board[colIdx][3] = 0;
+                checkAdded = 1;
+            }
+            
             else{};
+
         });
     };
     
     // function to add all elements on down
+    const addDown = () => {
+        board.forEach((boardCol,colIdx) => {
+            if (board[colIdx][3] == board[colIdx][2]) {
+                board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
+                board[colIdx][2] = 0;
+                checkAdded = 1;
+                if (board[colIdx][1] == board[colIdx][0]){
+                    board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
+                    board[colIdx][0] = 0;
+                };
+            }
+            else if (board[colIdx][2] == board[colIdx][1] && (board[colIdx][2] + board[colIdx][1] !== 0)) {
+                board[colIdx][2] = board[colIdx][2] + board[colIdx][1];
+                board[colIdx][1] = 0;
+                checkAdded = 1;
+            }
+            else if (board[colIdx][2] == board[colIdx][0]) {
+                board[colIdx][2] = board[colIdx][2] + board[colIdx][0];
+                board[colIdx][0] = 0;
+                checkAdded = 1;
+            }
+            
+            else if (board[colIdx][3] == board[colIdx][2]) {
+                board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
+                board[colIdx][2] = 0;
+                checkAdded = 1;
+            }
+            else if (board[colIdx][3] == board[colIdx][1]) {
+                board[colIdx][3] = board[colIdx][3] + board[colIdx][1];
+                board[colIdx][1] = 0;
+                checkAdded = 1;
+            }
+            else if  (board[colIdx][3] == board[colIdx][0]) {
+                board[colIdx][3] = board[colIdx][3] + board[colIdx][0];
+                board[colIdx][0] = 0;
+                checkAdded = 1;
+            }
+            
+            else{};
+
+        });
+    };
+
     // function to add all elements on right
     // function to add all elements on left
     
