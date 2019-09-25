@@ -3,22 +3,45 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    color: #404A62;
+    background-color: #F9F9F9;
 }
 
 .game-board{
     display: grid;
     grid-template-rows: repeat(4,12vh);
     grid-template-columns: repeat(4,12vh);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 3px solid #B1D7CF;
 }
 
 .game-board>div{
-    border: 1px solid black;
+    background: white;
+    border: 2px solid #B1D7CF;
     text-align: center;
     line-height: 11vh;
-    font-size: 8vh;
+    font-size: 4vh;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 h1{
     display: inline-block;
+    font-size: 8vh;
+    letter-spacing: 1vh;
+    margin-top:2%;
 }
 
+h2{
+    color: rgba(64, 74, 98,0.7);
+}
+
+p{
+    max-width: 50%;
+    margin: 0 auto;
+}
