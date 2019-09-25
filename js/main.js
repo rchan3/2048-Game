@@ -159,7 +159,7 @@ const render = () => {
         }
         else{}      
     }
-
+    
     // function to do horizontal moving
     const hMove = (x) => {
         if (x == "right") {
@@ -287,92 +287,9 @@ const render = () => {
         });
     };
     
-    // function to add all elements on horizontal
-    
-    // const addHor = (x) => {
-    //     //prioritize the sort in this case to prioritize right
-    //     if (x == "right"){
-    
-    //         for(i = 0; i < 4; i++) { 
-    //             if (board[3][i]==board[2][i] && (board[3][i] + board[2][i] !== 0)) { debugger
-    //                 board[3][i]=board[3][i]+board[2][i];
-    //                 board[2][i] = 0;
-    //                 checkAdded = 1
-    //                 if (board[1][i]==board[0][i] && (board[0][i] + board[1][i] !== 0)) {
-    //                     board[1][i]=board[1][i]+board[0][i];
-    //                     board[0][i] = 0;
-    //                 }
-    //                 return;    
-    //             }                         
-    //         }
-    //     }
-    //     //prioritize the sort in this case to prioritize left
-    //     else {
-    
-    //         for(i = 0; i < 4; i++) {
-    
-    //             if (board[0][i]==board[1][i] && (board[0][i] + board[1][i] !== 0)) {
-    //                 board[0][i]=board[0][i]+board[1][i];
-    //                 board[1][i] = 0;
-    //                 checkAdded = 1;
-    //                 if (board[3][i]==board[2][i] && (board[3][i] + board[2][i] !== 0)) {
-    //                     board[3][i]=board[3][i]+board[2][i];
-    //                     board[2][i] = 0;
-    //                 }
-    //                 return;
-    //             }
-    //         }
-    //     }
-    
-    //     for(i = 0; i <= 3; i++) {
-    //         if ((board[2][i]==board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
-    
-    //             board[2][i]=board[2][i]+board[1][i];
-    //             board[1][i] = 0;
-    //             checkAdded = 1;
-    //             return;
-    //         }
-    
-    //         else if (board[3][i]==board[2][i] && (board[3][i] + board[2][i] !== 0)) {
-    
-    //             board[3][i]=board[3][i]+board[2][i];
-    //             board[2][i] = 0;
-    //             checkAdded = 1;
-    //             return;
-    //         }
-    //         else if (board[3][i]==board[1][i] && (board[3][i] + board[1][i] !== 0) && (board[2][i] === 0)) {
-    
-    //             board[3][i]=board[3][i]+board[1][i];
-    //             board[1][i] = 0;
-    //             checkAdded = 1;
-    //             return;
-    //         }
-    //         else if (board[3][i]==board[0][i] && (board[2][i] + board[1][i] == 0) && (board[3][i] + board[0][i] !== 0)) {
-    
-    //             board[3][i]=board[3][i]+board[0][i];
-    //             board[0][i] = 0;
-    //             checkAdded = 1;
-    //             return;
-    //         }
-    
-    //         else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0) && (board[1][i] === 0)) {
-    
-    //             board[2][i]=board[2][i]+board[0][i];
-    //             board[0][i] = 0;
-    //             checkAdded = 1;
-    //             return;
-    //         }
-    //         else if ((board[1][i]==board[0][i]) && (board[1][i] + board[0][i] !== 0)) {
-    //             board[1][i]=board[1][i]+board[0][i];
-    //             board[0][i] = 0;
-    //             checkAdded = 1
-    //             return;
-    //         }
-    //         else{console.log("else block reached")};
-    //     };
-    // };
     
     const addLeft = () => {
+        // run for loop 4 times
         for(i = 0; i < 4; i++) {
             // list different possibilities with priority to left
             
@@ -386,7 +303,7 @@ const render = () => {
                     board[2][i] = 0;   
                 }
             }
-
+            
             else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0)) {
                 board[2][i]=board[2][i]+board[0][i];
                 board[0][i] = 0;
@@ -396,35 +313,69 @@ const render = () => {
                 board[3][i]=board[3][i]+board[0][i];
                 board[0][i] = 0;
                 checkAdded = 1;
-                            }
+            }
             else if ((board[2][i]==board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
                 board[2][i]=board[2][i]+board[1][i];
                 board[1][i] = 0;
                 checkAdded = 1;
-                            }
+            }
             else if ((board[3][i]==board[1][i]) && (board[3][i] + board[1][i] !== 0)) {
                 board[3][i]=board[3][i]+board[1][i];
                 board[1][i] = 0;
                 checkAdded = 1;
-                            }
+            }
             else if ((board[3][i]==board[2][i]) && (board[3][i] + board[2][i] !== 0)) {
                 board[3][i]=board[3][i]+board[2][i];
                 board[2][i] = 0;
                 checkAdded = 1;
-                            } 
+            } 
             else{console.log("else block reached")}
         }
     }
     
     const addRight = () => {
+        // run for loop 4 times
         for(i = 0; i < 4; i++) {
             // list different possibilities with priority to left
             // 2 sets of numbers that need to be added in the row
-
-            //to do: 02,03,12,13,32 (Backwards)
+            if (board[3][i]==board[2][i] && (board[3][i] + board[2][i] !== 0)) {
+                board[3][i]=board[3][i]+board[2][i];
+                board[2][i] = 0;   
+                checkAdded = 1;
+                if (board[0][i]==board[1][i] && (board[0][i] + board[1][i] !== 0)) {
+                    board[0][i]=board[0][i]+board[1][i];
+                    board[1][i] = 0;
+                }
+            }
+            //to do: 32,31,21,30.20
+            else if ((board[3][i]==board[2][i]) && (board[3][i] + board[2][i] !== 0)) {
+                board[3][i]=board[3][i]+board[2][i];
+                board[2][i] = 0;
+                checkAdded = 1;
+            }
+            else if ((board[3][i]==board[1][i]) && (board[3][i] + board[1][i] !== 0)) {
+                board[3][i]=board[3][i]+board[1][i];
+                board[1][i] = 0;
+                checkAdded = 1;
+            }
+            else if ((board[2][i]==board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
+                board[2][i]=board[2][i]+board[1][i];
+                board[1][i] = 0;
+                checkAdded = 1;
+            }
+            else if ((board[3][i]==board[0][i]) && (board[3][i] + board[0][i] !== 0)) {
+                board[3][i]=board[3][i]+board[0][i];
+                board[0][i] = 0;
+                checkAdded = 1;
+            }
+            else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0)) {
+                board[2][i]=board[2][i]+board[0][i];
+                board[0][i] = 0;
+                checkAdded = 1;
+            }
+            else{}
         }
     }
-    // function to add all elements on left
     
     //initial board setup
     const init = () => {
