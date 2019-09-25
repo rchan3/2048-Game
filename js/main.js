@@ -92,6 +92,7 @@ const render = () => {
             console.log("nospawn"); //test
         }
     }
+    
     const dirLeft = () => {
         checkMoved = 0;
         checkAdded = 0;
@@ -99,7 +100,8 @@ const render = () => {
         addLeft();
         //make function to move left
         hMove("left");
-        hMove("left");//run thrice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
+        hMove("left");
+        hMove("left");//run few times because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
         //randomspawn only checkAdded = 0;if a combine/move has happened
         if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
@@ -108,6 +110,7 @@ const render = () => {
             console.log("nospawn"); //test
         }
     }
+    
     const dirRight = () => {
         checkMoved = 0;
         checkAdded = 0;
@@ -116,7 +119,7 @@ const render = () => {
         //make function to move right
         hMove("right");
         hMove("right");
-        hMove("right");//run thrice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
+        hMove("right");//run twice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
         //randomspawn only icheckAdded = 0;f a combine/move has happened
         if (checkMoved !== 0||checkAdded !== 0) {
             randomSpawn();
@@ -196,38 +199,39 @@ const render = () => {
     //function to add all elements on up
     const addUp = () => {
         board.forEach((boardCol,colIdx) => {
-            if (board[colIdx][0] == board[colIdx][1]) {
+            if (board[colIdx][0] == board[colIdx][1] && (board[colIdx][0] + board[colIdx][1] !== 0 )) {
                 board[colIdx][0] = board[colIdx][0] + board[colIdx][1];
                 board[colIdx][1] = 0;
                 checkAdded = 1;
-                if (board[colIdx][2] == board[colIdx][3]){
+                if (board[colIdx][2] == board[colIdx][3] && (board[colIdx][2] + board[colIdx][3] !== 0)){
                     board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
                     board[colIdx][3] = 0;
                 };
             }
+
             else if (board[colIdx][1] == board[colIdx][2] && (board[colIdx][1] + board[colIdx][2] !== 0)) {
                 board[colIdx][1] = board[colIdx][1] + board[colIdx][2];
                 board[colIdx][2] = 0;
                 checkAdded = 1;
             }
-            else if (board[colIdx][0] == board[colIdx][2]) {
+            else if (board[colIdx][0] == board[colIdx][2] && (board[colIdx][0] + board[colIdx][2] !== 0) && board[colIdx][1] === 0) {
                 board[colIdx][0] = board[colIdx][0] + board[colIdx][2];
                 board[colIdx][2] = 0;
                 checkAdded = 1;
             }
             
-            else if (board[colIdx][2] == board[colIdx][3]) {
+            else if (board[colIdx][2] == board[colIdx][3]  && (board[colIdx][2] + board[colIdx][3] !== 0)) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
                 board[colIdx][3] = 0;
                 checkAdded = 1;
             }
-            else if (board[colIdx][1] == board[colIdx][3]) {
+            else if (board[colIdx][1] == board[colIdx][3] && (board[colIdx][1] + board[colIdx][3] !== 0) && (board[colIdx][2] === 0 )) {
                 board[colIdx][1] = board[colIdx][1] + board[colIdx][3];
                 board[colIdx][3] = 0;
                 checkAdded = 1;
             }
             
-            else if  (board[colIdx][0] == board[colIdx][3]) {
+            else if  (board[colIdx][0] == board[colIdx][3] && (board[colIdx][0] + board[colIdx][3] !== 0) && (board[colIdx][1] + board[colIdx][2] == 0)) {
                 board[colIdx][0] = board[colIdx][0] + board[colIdx][3];
                 board[colIdx][3] = 0;
                 checkAdded = 1;
@@ -241,37 +245,34 @@ const render = () => {
     // function to add all elements on down
     const addDown = () => {
         board.forEach((boardCol,colIdx) => {
-            if (board[colIdx][3] == board[colIdx][2]) {
+            if (board[colIdx][3] == board[colIdx][2] && (board[colIdx][2] + board[colIdx][3] !== 0)) {
                 board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
                 board[colIdx][2] = 0;
                 checkAdded = 1;
-                if (board[colIdx][1] == board[colIdx][0]){
+                if (board[colIdx][1] == board[colIdx][0]&& (board[colIdx][0] + board[colIdx][1] !== 0 )){
                     board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
                     board[colIdx][0] = 0;
                 };
             }
+
             else if (board[colIdx][2] == board[colIdx][1] && (board[colIdx][2] + board[colIdx][1] !== 0)) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][1];
                 board[colIdx][1] = 0;
                 checkAdded = 1;
             }
             
-            else if (board[colIdx][2] == board[colIdx][0]) {
+            else if (board[colIdx][2] == board[colIdx][0] && (board[colIdx][0] + board[colIdx][2] !== 0) && board[colIdx][1] === 0) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][0];
                 board[colIdx][0] = 0;
                 checkAdded = 1;
             }
-            else if (board[colIdx][1] == board[colIdx][0]){
+            else if (board[colIdx][1] == board[colIdx][0]&& (board[colIdx][0] + board[colIdx][1] !== 0 )){
                 board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
                 board[colIdx][0] = 0;
                 checkAdded = 1;
             }
-            else if (board[colIdx][3] == board[colIdx][2]) {
-                board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
-                board[colIdx][2] = 0;
-                checkAdded = 1;
-            }
-            else if (board[colIdx][3] == board[colIdx][1]) {
+
+            else if (board[colIdx][3] == board[colIdx][1] && (board[colIdx][1] + board[colIdx][3] !== 0) && (board[colIdx][2] === 0 )) {
                 board[colIdx][3] = board[colIdx][3] + board[colIdx][1];
                 board[colIdx][1] = 0;
                 checkAdded = 1;
@@ -286,8 +287,7 @@ const render = () => {
             
         });
     };
-    
-    
+     
     const addLeft = () => {
         // run for loop 4 times
         for(i = 0; i < 4; i++) {
