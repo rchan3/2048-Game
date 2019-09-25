@@ -45,6 +45,7 @@ let gameKey = document.addEventListener("keydown", function(evt)   {
 
 //update everything on board to the html board
 const render = () => {
+    checkWin();
     board.forEach((boardCol, colIdx) => {
         boardCol.forEach((rowCol, rowIdx) => {
             // $(`${boardSquare}.c${colIdx}r${rowIdx}`).html(`${rowCol}`);
@@ -58,6 +59,7 @@ const render = () => {
             }        }
             );
         });
+        
     };
     
     // functions to add the math in each of the 4 directions
@@ -73,7 +75,7 @@ const render = () => {
             randomSpawn();
         }
         else {
-            console.log("nospawn"); //test
+            
         }
     }
     
@@ -89,7 +91,7 @@ const render = () => {
             randomSpawn();
         }
         else {
-            console.log("nospawn"); //test
+            
         }
     }
     
@@ -107,7 +109,7 @@ const render = () => {
             randomSpawn();
         }
         else {
-            console.log("nospawn"); //test
+            
         }
     }
     
@@ -125,7 +127,7 @@ const render = () => {
             randomSpawn();
         }
         else {
-            console.log("nospawn"); //test
+            
         }
     }
     
@@ -288,6 +290,7 @@ const render = () => {
         });
     };
      
+    // function to add all elements on left
     const addLeft = () => {
         // run for loop 4 times
         for(i = 0; i < 4; i++) {
@@ -332,7 +335,8 @@ const render = () => {
             else{console.log("else block reached")}
         }
     }
-    
+
+    // function to add all elements on right
     const addRight = () => {
         // run for loop 4 times
         for(i = 0; i < 4; i++) {
@@ -377,6 +381,15 @@ const render = () => {
         }
     }
     
+    const checkWin = () => {
+        board.forEach((boardCol,colIdx) => {
+            boardCol.forEach((rowCol,rowIdx) => {
+                if (rowCol === 2048) {
+                    gameState = 1;
+                }
+            });
+        });
+    }
     //initial board setup
     const init = () => {
         
@@ -451,22 +464,28 @@ const render = () => {
     randomly spawn 2 or 4 tile in a random empty space 
     + spawn 2 on init 
     
+    if no win/lose --> move and add identical squares in the fdirection of the button pressed (if one square was added then it cant be added again during the same turn - if there is more than one dupe then the direction chooses which one has prio)
     
+    - function to do stuff based on direction - only if gameState is null 
+
+     make sure all the empty space to (direction) is taken up of theres a space 
+    
+
     WORKING ON:
     after a move
     check for win/lose 
     win = one of the squares in the board has a value of 2040
     lose = all the squares are full and there are no dupe values to the left/right/top/bottom 
     
-    if no win/lose --> move and add identical squares in the fdirection of the button pressed (if one square was added then it cant be added again during the same turn - if there is more than one dupe then the direction chooses which one has prio)
+    
     - add lose/win check to each listener
-    - function to do stuff based on direction - only if gameState is null FINISHED
     
-    make sure all the empty space to (direction) is taken up of theres a space 
     
+   
     
     
     if there is time:
+    fix the css - change grid number size (3 digits breaks out of grid)
     score system - score works by calculating totals of added numbers
     colors for each number square?
     sliding animation ???
