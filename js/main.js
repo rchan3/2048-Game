@@ -96,6 +96,7 @@ const render = () => {
         checkMoved = 0;
         checkAdded = 0;
         //make function to add them horizontally
+        addHor("left");
         //make function to move left
         hMove("left");
         hMove("left");//run twice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
@@ -111,6 +112,7 @@ const render = () => {
         checkMoved = 0;
         checkAdded = 0;
         //make function to add them horizontally
+        addHor("right");
         //make function to move right
         hMove("right");
         hMove("right");//run twice because sometimes theres a random space if only run once - need to recode it later probably. when it sees a white space it doesnt move whatever is behind itself so it needed to run twice. 
@@ -211,7 +213,7 @@ const render = () => {
                 board[colIdx][2] = 0;
                 checkAdded = 1;
             }
-
+            
             else if (board[colIdx][2] == board[colIdx][3]) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
                 board[colIdx][3] = 0;
@@ -222,7 +224,7 @@ const render = () => {
                 board[colIdx][3] = 0;
                 checkAdded = 1;
             }
-
+            
             else if  (board[colIdx][0] == board[colIdx][3]) {
                 board[colIdx][0] = board[colIdx][0] + board[colIdx][3];
                 board[colIdx][3] = 0;
@@ -230,7 +232,7 @@ const render = () => {
             }
             
             else{};
-
+            
         });
     };
     
@@ -251,12 +253,17 @@ const render = () => {
                 board[colIdx][1] = 0;
                 checkAdded = 1;
             }
+            
             else if (board[colIdx][2] == board[colIdx][0]) {
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][0];
                 board[colIdx][0] = 0;
                 checkAdded = 1;
             }
-            
+            else if (board[colIdx][1] == board[colIdx][0]){
+                board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
+                board[colIdx][0] = 0;
+                checkAdded = 1;
+            }
             else if (board[colIdx][3] == board[colIdx][2]) {
                 board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
                 board[colIdx][2] = 0;
@@ -274,11 +281,73 @@ const render = () => {
             }
             
             else{};
-
+            
         });
     };
+    
+    // function to add all elements on horizontal
+    
+    const addHor = (x) => {
+        //prioritize the sort in this case to justify right
+        if (x == "right"){
+            for(i = 0; i < 3; i++) {
+                if (board[3][i]==board[2][i]) {
+                    board[3][i]=board[3][i]+board[2][i];
+                    board[2][i] = 0;
+                    checkAdded = 1;
+                    if (board[1][i]==board[0][i]) {
+                        board[1][i]=board[1][i]+board[0][i];
+                        board[0][i] = 0;
+                        checkAdded = 1
+                    }
+                }    
+            }
+        }
+        //prioritize the sort in this case to justify left
+        else if (x == "left"){
+            for(i = 0; i < 3; i++) {
+                if (board[3][i]==board[2][i]) {
+                    board[3][i]=board[3][i]+board[2][i];
+                    board[2][i] = 0;
+                    checkAdded = 1;
+                    if (board[0][i]==board[1][i]) {
+                        board[0][i]=board[0][i]+board[1][i];
+                        board[1][i] = 0;
+                        checkAdded = 1
+                    }
+                }    
+            }
+        }
 
-    // function to add all elements on right
+
+        if (board[3][i]==board[1][i]) {
+            // debugger
+            board[3][i]=board[3][i]+board[1][i];
+            board[1][i] = 0;
+            checkAdded = 1;
+        }
+        else if (board[3][i]==board[0][i]) {
+            // debugger
+            board[3][i]=board[3][i]+board[0][i];
+            board[0][i] = 0;
+            checkAdded = 1;
+        }
+        else if (board[2][i]==board[1][i]) {
+            // debugger
+            board[2][i]=board[2][i]+board[1][i];
+            board[1][i] = 0;
+            checkAdded = 1;
+        }
+        // not working^
+        else if (board[2][i]==board[0][i]) {
+            // debugger
+            board[2][i]=board[2][i]+board[0][i];
+            board[0][i] = 0;
+            checkAdded = 1;
+        }
+        else{console.log("else block reached")}
+    };
+    
     // function to add all elements on left
     
     //initial board setup
