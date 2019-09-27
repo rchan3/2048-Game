@@ -490,16 +490,7 @@ const spawnInt = () => {
 
 init();
 
-/*PSEUDOCODE
-
-ARRAY MAPPING FOR REFERENCING
-
-left    
-["","","",""]
-top    ["","","",""]   bottom  
-["","","",""]
-["","","",""]
-right
+/*
 
 game functions:
 
