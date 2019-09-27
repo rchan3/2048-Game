@@ -29,6 +29,6 @@
 #### *Implementing a working scoring system
 #### *Adding a sliding animation based on the direction pressed
 #### *Making it mobile friendly by adding an event listener for swiping directions
-
+#### *Adding a win popup message that isnt an alert
 
 
