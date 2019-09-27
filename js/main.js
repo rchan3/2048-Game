@@ -2,7 +2,7 @@
 
 /*----- app's state (variables) -----*/
 
-let gameState,board,checkMoved,checkAdded,rgbInt;
+let gameState,board,checkMoved,checkAdded,rgbInt,totalScore;
 //gameState initialized as null - 1 if win, -1 if lose
 // checkMoved and checkAdded as 0 if nothing can be moved or added
 
@@ -14,7 +14,7 @@ let boardSquare = $(`.game-board div`); //target board squares
 /*----- event listeners -----*/
 
 // on button click, it will reset the game
-let newGame = $(':button').click(function (e) { 
+let newGame = $(':button').click(function () { 
     init();
 });
 
@@ -26,19 +26,23 @@ let gameKey = document.addEventListener("keydown", function(evt){
     if (gameState === 0) {
         // for up direction pressed
         if (evt.key === "w"||evt.key === "ArrowUp") { 
+            console.log("up")
             dirUp();
         }
         // for left direction pressed
         else if (evt.key === "a"||evt.key === "ArrowLeft") {
             dirLeft();
+            console.log("left")
         }
         // for down direction pressed
         else if (evt.key === "s"||evt.key === "ArrowDown") {
             dirDown();
+            console.log("down")
         }
         // for right direction pressed
         else if (evt.key === "d"||evt.key === "ArrowRight") {
             dirRight();
+            console.log("right")
         }
         else {
         }
@@ -55,6 +59,7 @@ const render = () => {
             // $(`${boardSquare}.c${colIdx}r${rowIdx}`).html(`${rowCol}`);
             if (rowCol===0) {
                 document.querySelector(`.c${colIdx}r${rowIdx}`).innerHTML = "";
+                document.querySelector(`.c${colIdx}r${rowIdx}`).style.backgroundColor = 'white';
             }
             else{ 
                 document.querySelector(`.c${colIdx}r${rowIdx}`).innerHTML = (`${rowCol}`);
@@ -65,6 +70,7 @@ const render = () => {
             }        
         });
     });
+    console.log(totalScore);
     
 };
 
@@ -207,13 +213,16 @@ const hMove = (x) => {
 //function to add all elements on up
 const addUp = () => {
     board.forEach((boardCol,colIdx) => {
+        
         if (board[colIdx][0] == board[colIdx][1] && (board[colIdx][0] + board[colIdx][1] !== 0 )) {
             board[colIdx][0] = board[colIdx][0] + board[colIdx][1];
             board[colIdx][1] = 0;
+            totalScore += board[colIdx][0];
             checkAdded = 1;
             if (board[colIdx][2] == board[colIdx][3] && (board[colIdx][2] + board[colIdx][3] !== 0)){
                 board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
                 board[colIdx][3] = 0;
+                totalScore += board[colIdx][2];
             };
         }
         
@@ -221,28 +230,33 @@ const addUp = () => {
             board[colIdx][1] = board[colIdx][1] + board[colIdx][2];
             board[colIdx][2] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][1];
         }
         else if (board[colIdx][0] == board[colIdx][2] && (board[colIdx][0] + board[colIdx][2] !== 0) && board[colIdx][1] === 0) {
             board[colIdx][0] = board[colIdx][0] + board[colIdx][2];
             board[colIdx][2] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][0];
         }
         
         else if (board[colIdx][2] == board[colIdx][3]  && (board[colIdx][2] + board[colIdx][3] !== 0)) {
             board[colIdx][2] = board[colIdx][2] + board[colIdx][3];
             board[colIdx][3] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][2];
         }
         else if (board[colIdx][1] == board[colIdx][3] && (board[colIdx][1] + board[colIdx][3] !== 0) && (board[colIdx][2] === 0 )) {
             board[colIdx][1] = board[colIdx][1] + board[colIdx][3];
             board[colIdx][3] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][1];
         }
         
         else if  (board[colIdx][0] == board[colIdx][3] && (board[colIdx][0] + board[colIdx][3] !== 0) && (board[colIdx][1] + board[colIdx][2] == 0)) {
             board[colIdx][0] = board[colIdx][0] + board[colIdx][3];
             board[colIdx][3] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][0];
         }
         
         else{};
@@ -257,9 +271,11 @@ const addDown = () => {
             board[colIdx][3] = board[colIdx][3] + board[colIdx][2];
             board[colIdx][2] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][3];
             if (board[colIdx][1] == board[colIdx][0]&& (board[colIdx][0] + board[colIdx][1] !== 0 )){
                 board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
                 board[colIdx][0] = 0;
+                totalScore += board[colIdx][1];
             };
         }
         
@@ -267,34 +283,40 @@ const addDown = () => {
             board[colIdx][2] = board[colIdx][2] + board[colIdx][1];
             board[colIdx][1] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][2];
         }
         
-        else if (board[colIdx][2] == board[colIdx][0] && (board[colIdx][0] + board[colIdx][2] !== 0) && board[colIdx][1] === 0) {
+        else if ((board[colIdx][2] == board[colIdx][0]) && (board[colIdx][0] + board[colIdx][2] !== 0) && (board[colIdx][1] === 0)) {
             board[colIdx][2] = board[colIdx][2] + board[colIdx][0];
             board[colIdx][0] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][2];
         }
         else if (board[colIdx][1] == board[colIdx][0]&& (board[colIdx][0] + board[colIdx][1] !== 0 )){
             board[colIdx][1] = board[colIdx][1] + board[colIdx][0];
             board[colIdx][0] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][1];
         }
         
         else if (board[colIdx][3] == board[colIdx][1] && (board[colIdx][1] + board[colIdx][3] !== 0) && (board[colIdx][2] === 0 )) {
             board[colIdx][3] = board[colIdx][3] + board[colIdx][1];
             board[colIdx][1] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][13];
         }
-        else if  (board[colIdx][3] == board[colIdx][0]) {
+        else if  ((board[colIdx][3] == board[colIdx][0])&&(board[colIdx][3] + board[colIdx][0] !== 0) && (board[colIdx][1] + board[colIdx][2]===0)) {
             board[colIdx][3] = board[colIdx][3] + board[colIdx][0];
             board[colIdx][0] = 0;
             checkAdded = 1;
+            totalScore += board[colIdx][3];
         }
         
         else{};
         
     });
-};
+
+}
 
 // function to add all elements on left
 const addLeft = () => {
@@ -303,42 +325,49 @@ const addLeft = () => {
         // list different possibilities with priority to left
         
         // if 2 sets of numbers that need to be added in the row
-        if (board[0][i]==board[1][i] && (board[0][i] + board[1][i] !== 0)) {
+        if (board[0][i]===board[1][i] && (board[0][i] + board[1][i] !== 0)) {
             board[0][i]=board[0][i]+board[1][i];
             board[1][i] = 0;
             checkAdded = 1;
-            if (board[3][i]==board[2][i] && (board[3][i] + board[2][i] !== 0)) {
+            totalScore += board[0][i];
+            if (board[3][i]===board[2][i] && (board[3][i] + board[2][i] !== 0)) {
                 board[3][i]=board[3][i]+board[2][i];
                 board[2][i] = 0;   
+                totalScore += board[3][i];
             }
         }
         
-        else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0)) {
+        else if ((board[2][i]===board[0][i]) && (board[2][i] + board[0][i] !== 0)&&(board[1][i])===0) {
             board[2][i]=board[2][i]+board[0][i];
             board[0][i] = 0;
             checkAdded = 1;   
+            totalScore += board[2][i];
         }
-        else if ((board[3][i]==board[0][i]) && (board[3][i] + board[0][i] !== 0)) {
+        else if ((board[3][i]===board[0][i]) && (board[3][i] + board[0][i] !== 0) && (board[2][i])===0) {
             board[3][i]=board[3][i]+board[0][i];
             board[0][i] = 0;
             checkAdded = 1;
+            totalScore += board[3][i];
         }
-        else if ((board[2][i]==board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
+        else if ((board[2][i]===board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
             board[2][i]=board[2][i]+board[1][i];
             board[1][i] = 0;
             checkAdded = 1;
+            totalScore += board[2][i];
         }
-        else if ((board[3][i]==board[1][i]) && (board[3][i] + board[1][i] !== 0)) {
+        else if ((board[3][i]===board[1][i]) && (board[3][i] + board[1][i] !== 0)&&(board[2][i]===0)) {
             board[3][i]=board[3][i]+board[1][i];
             board[1][i] = 0;
             checkAdded = 1;
+            totalScore += board[1][i];
         }
-        else if ((board[3][i]==board[2][i]) && (board[3][i] + board[2][i] !== 0)) {
+        else if ((board[3][i]===board[2][i]) && (board[3][i] + board[2][i] !== 0)) {
             board[3][i]=board[3][i]+board[2][i];
             board[2][i] = 0;
             checkAdded = 1;
+            totalScore += board[3][i];
         } 
-        else{console.log("else block reached")}
+        else{}
     }
 }
 
@@ -352,35 +381,47 @@ const addRight = () => {
             board[3][i]=board[3][i]+board[2][i];
             board[2][i] = 0;   
             checkAdded = 1;
+            totalScore += board[3][i];
             if (board[0][i]==board[1][i] && (board[0][i] + board[1][i] !== 0)) {
                 board[0][i]=board[0][i]+board[1][i];
                 board[1][i] = 0;
+                totalScore += board[0][i];
             }
-        }
-        //to do: 32,31,21,30.20
+        } 
         else if ((board[3][i]==board[2][i]) && (board[3][i] + board[2][i] !== 0)) {
             board[3][i]=board[3][i]+board[2][i];
             board[2][i] = 0;
             checkAdded = 1;
+            totalScore += board[3][i];
         }
-        else if ((board[3][i]==board[1][i]) && (board[3][i] + board[1][i] !== 0)) {
+        else if ((board[3][i]==board[1][i]) && (board[3][i] + board[1][i] !== 0)&&(board[2][i]==0)) {
             board[3][i]=board[3][i]+board[1][i];
             board[1][i] = 0;
             checkAdded = 1;
+            totalScore += board[3][i];
         }
         else if ((board[2][i]==board[1][i]) && (board[2][i] + board[1][i] !== 0)) {
             board[2][i]=board[2][i]+board[1][i];
             board[1][i] = 0;
             checkAdded = 1;
+            totalScore += board[2][i];
         }
-        else if ((board[3][i]==board[0][i]) && (board[3][i] + board[0][i] !== 0)) {
+        else if ((board[3][i]==board[0][i]) && (board[3][i] + board[0][i] !== 0)&&(board[2][i] + board[1][i]==0)) {
             board[3][i]=board[3][i]+board[0][i];
             board[0][i] = 0;
             checkAdded = 1;
+            totalScore += board[3][i];
         }
-        else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0)) {
+        else if ((board[2][i]==board[0][i]) && (board[2][i] + board[0][i] !== 0)&&(board[1][i] === 0)) {
             board[2][i]=board[2][i]+board[0][i];
             board[0][i] = 0;
+            checkAdded = 1;
+            totalScore += board[2][i];
+        }
+        else if (board[0][i]==board[1][i] && (board[0][i] + board[1][i] !== 0)) {
+            board[0][i]=board[0][i]+board[1][i];
+            board[1][i] = 0;
+            totalScore += board[0][i];
             checkAdded = 1;
         }
         else{}
@@ -412,6 +453,7 @@ const init = () => {
     randomSpawn();
     randomSpawn();
     gameState = 0;
+    totalScore = 0;
 };
 
 // find random empty space on board to spawn
@@ -483,16 +525,18 @@ after a move
 check for win/ 
 win = one of the squares in the board has a value of 2040
 
-WORKING ON:
-
 fix the css - change grid number size (3 digits breaks out of grid)
 
 new game button
 
+colors for each number square based on value
+
+WORKING ON:
+
 if there is time:
 
 score system - score works by calculating totals of added numbers
-colors for each number square?
+
 sliding animation ???
 
 */
