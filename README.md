@@ -11,7 +11,6 @@
 
 ![alt text](https://i.imgur.com/nVMTwqQ.png " ")
 ![alt text](https://i.imgur.com/AH4wovw.png " ")
-![alt text](https://i.imgur.com/pXkADyh.png " ")
 
 ## Technologies Used
 
